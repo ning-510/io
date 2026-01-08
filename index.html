@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ning的數位總部</title>
+    <!-- 設定 iOS 主畫面全螢幕體驗 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg: #f2f2f7;
+            --card-bg: #ffffff;
+            --text-main: #1c1c1e;
+            --text-sub: #8e8e93;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0; padding: 20px;
+            max-width: 600px; margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        /* 標題區 */
+        header { margin-bottom: 25px; padding-top: 10px; }
+        .date { font-size: 13px; color: var(--text-sub); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        h1 { margin: 5px 0 0 0; font-size: 28px; font-weight: 800; }
+
+        /* 備忘錄小工具 */
+        .widget {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .widget i { font-size: 24px; color: #f59e0b; }
+        textarea {
+            width: 100%; border: none; resize: none; outline: none;
+            font-family: inherit; background: transparent; font-size: 15px; height: 24px;
+            margin-top: 2px; color: var(--text-main);
+        }
+
+        /* App 網格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        /* 卡片本體 */
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.15s, box-shadow 0.15s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 130px;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .app-card:active { transform: scale(0.96); background: #fafafa; }
+
+        /* 圖示區塊 */
+        .icon-box {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; color: white; margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .app-name { font-size: 17px; font-weight: 700; }
+        .app-desc { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
+
+        /* 顏色定義 */
+        .g-blue   { background: linear-gradient(135deg, #3b82f6, #2563eb); } /* 記帳 */
+        .g-purple { background: linear-gradient(135deg, #a855f7, #7c3aed); } /* 手帳 */
+        .g-orange { background: linear-gradient(135deg, #f97316, #ea580c); } /* 庫存 */
+        .g-green  { background: linear-gradient(135deg, #10b981, #059669); } /* 表格 */
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="date" id="current-date">TODAY</div>
+        <h1>數位總部 Dashboard</h1>
+    </header>
+
+    <!-- 快速備忘錄 (會自動儲存在手機裡) -->
+    <div class="widget">
+        <i class="ph ph-push-pin"></i>
+        <textarea id="quick-note" placeholder="臨時想記點什麼..."></textarea>
+    </div>
+
+    <div class="grid">
+        
+        <!-- 1. 相機記帳 (Money Tracker) -->
+        <!-- 🔴 請替換下方的 href 網址 -->
+        <a href="https://ning-510.github.io/SplitThe-Bill/" target="_blank" class="app-card">
+            <div class="icon-box g-blue">
+                <i class="ph ph-camera"></i>
+            </div>
+            <div>
+                <div class="app-name">相機記帳</div>
+                <div class="app-desc">掃描、分帳</div>
+            </div>
+        </a>
+
+        <!-- 2. 個人手帳 (Planner) -->
+        <!-- 🔴 請替換下方的 href 網址 -->
+        <a href="https://ning-510.github.io/My-Planner/" target="_blank" class="app-card">
+            <div class="icon-box g-purple">
+                <i class="ph ph-notebook"></i>
+            </div>
+            <div>
+                <div class="app-name">個人手帳</div>
+                <div class="app-desc">日記、行程</div>
+            </div>
+        </a>
+
+        <!-- 3. 居家庫存 (Home Inventory) -->
+        <!-- 🔴 請替換下方的 href 網址 -->
+        <a href="https://ning-510.github.io/Inventory/" target="_blank" class="app-card">
+            <div class="icon-box g-orange">
+                <i class="ph ph-package"></i>
+            </div>
+            <div>
+                <div class="app-name">居家庫存</div>
+                <div class="app-desc">物品管理</div>
+            </div>
+        </a>
+
+        
+
+    </div>
+
+<script>
+    // 顯示日期
+    const dateOpts = { weekday: 'short', month: 'numeric', day: 'numeric' };
+    document.getElementById('current-date').innerText = new Date().toLocaleDateString('zh-TW', dateOpts);
+
+    // 備忘錄自動儲存功能
+    const note = document.getElementById('quick-note');
+    note.value = localStorage.getItem('nh_dashboard_note') || "";
+    note.addEventListener('input', () => {
+        localStorage.setItem('nh_dashboard_note', note.value);
+    });
+</script>
+
+</body>
+</html>
