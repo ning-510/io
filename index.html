@@ -10,83 +10,102 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         :root {
-            --bg: #f2f2f7;
+            /* 莫蘭迪背景色：帶一點暖灰 */
+            --bg: #f5f5f2; 
             --card-bg: #ffffff;
-            --text-main: #1c1c1e;
-            --text-sub: #8e8e93;
+            --text-main: #4a4a4a; /* 深灰取代純黑，更柔和 */
+            --text-sub: #8c8c8c;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            margin: 0; padding: 20px;
+            margin: 0; padding: 25px 20px;
             max-width: 600px; margin: 0 auto;
             min-height: 100vh;
+            box-sizing: border-box;
         }
 
         /* 標題區 */
-        header { margin-bottom: 25px; padding-top: 10px; }
-        .date { font-size: 13px; color: var(--text-sub); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        h1 { margin: 5px 0 0 0; font-size: 28px; font-weight: 800; }
+        header { margin-bottom: 30px; padding-left: 5px; }
+        .date { 
+            font-size: 13px; color: var(--text-sub); 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px; 
+            margin-bottom: 5px;
+        }
+        h1 { 
+            margin: 0; font-size: 26px; font-weight: 700; color: #3e3e3e;
+            letter-spacing: 0.5px;
+        }
 
-        /* 備忘錄小工具 */
+        /* 備忘錄小工具 - 簡約風格 */
         .widget {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            padding: 18px 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             display: flex; align-items: center; gap: 12px;
+            border: 1px solid rgba(0,0,0,0.02);
         }
-        .widget i { font-size: 24px; color: #f59e0b; }
+        .widget i { font-size: 22px; color: #a89f91; /* 莫蘭迪棕 */ }
         textarea {
             width: 100%; border: none; resize: none; outline: none;
             font-family: inherit; background: transparent; font-size: 15px; height: 24px;
             margin-top: 2px; color: var(--text-main);
         }
+        textarea::placeholder { color: #d1d1d1; }
 
         /* App 網格 */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 18px;
         }
 
         /* 卡片本體 */
         .app-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 24px;
+            padding: 22px;
             text-decoration: none;
             color: var(--text-main);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 130px;
+            height: 135px;
             position: relative;
-            border: 1px solid rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.01);
         }
-        .app-card:active { transform: scale(0.96); background: #fafafa; }
+        .app-card:active { transform: scale(0.97); }
 
         /* 圖示區塊 */
         .icon-box {
-            width: 48px; height: 48px;
-            border-radius: 14px;
+            width: 50px; height: 50px;
+            border-radius: 16px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 26px; color: white; margin-bottom: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            font-size: 26px; color: white; margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .app-name { font-size: 17px; font-weight: 700; }
-        .app-desc { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
+        .app-name { font-size: 16px; font-weight: 700; color: #555; }
+        .app-desc { font-size: 12px; color: #999; margin-top: 4px; font-weight: 500; }
 
-        /* 顏色定義 */
-        .g-blue   { background: linear-gradient(135deg, #3b82f6, #2563eb); } /* 記帳 */
-        .g-purple { background: linear-gradient(135deg, #a855f7, #7c3aed); } /* 手帳 */
-        .g-orange { background: linear-gradient(135deg, #f97316, #ea580c); } /* 庫存 */
-        .g-green  { background: linear-gradient(135deg, #10b981, #059669); } /* 信用卡 */
+        /* --- 莫蘭迪色系定義 (Morandi Palette) --- */
+        
+        /* 相機記帳：霧霾藍 (Dusty Blue) */
+        .m-blue { background: linear-gradient(135deg, #8FA4AE, #718995); }
+        
+        /* 個人手帳：香芋紫 (Muted Lavender) */
+        .m-purple { background: linear-gradient(135deg, #B3A5B8, #96869D); }
+        
+        /* 居家庫存：奶茶杏 (Warm Beige/Apricot) */
+        .m-apricot { background: linear-gradient(135deg, #D4B59E, #BA9A82); }
+        
+        /* 信用卡優惠：乾燥玫瑰 (Dusty Rose) */
+        .m-rose { background: linear-gradient(135deg, #D4A5A5, #B58484); }
 
     </style>
 </head>
@@ -94,16 +113,16 @@
 
     <header>
         <div class="date" id="current-date">TODAY</div>
-        <h1>Ning的數位總部</h1>
+        <h1>Ning & Hsiang Home</h1>
     </header>
 
 
     <div class="grid">
         
-        <!-- 1. 相機記帳 (Money Tracker) -->
-        <!-- 🔴 請替換下方的 href 網址 -->
+        <!-- 1. 相機記帳 -->
+        <!-- 🔴 請替換 href -->
         <a href="https://ning-510.github.io/SplitThe-Bill/" target="_blank" class="app-card">
-            <div class="icon-box g-blue">
+            <div class="icon-box m-blue">
                 <i class="ph ph-camera"></i>
             </div>
             <div>
@@ -112,10 +131,10 @@
             </div>
         </a>
 
-        <!-- 2. 個人手帳 (Planner) -->
-        <!-- 🔴 請替換下方的 href 網址 -->
+        <!-- 2. 個人手帳 -->
+        <!-- 🔴 請替換 href -->
         <a href="https://ning-510.github.io/My-Planner/" target="_blank" class="app-card">
-            <div class="icon-box g-purple">
+            <div class="icon-box m-purple">
                 <i class="ph ph-notebook"></i>
             </div>
             <div>
@@ -124,10 +143,10 @@
             </div>
         </a>
 
-        <!-- 3. 居家庫存 (Home Inventory) -->
-        <!-- 🔴 請替換下方的 href 網址 -->
+        <!-- 3. 居家庫存 -->
+        <!-- 🔴 請替換 href -->
         <a href="https://ning-510.github.io/Inventory/" target="_blank" class="app-card">
-            <div class="icon-box g-orange">
+            <div class="icon-box m-apricot">
                 <i class="ph ph-package"></i>
             </div>
             <div>
@@ -136,28 +155,27 @@
             </div>
         </a>
 
-         <!-- 4. 信用卡優惠 (Best Choice of Cards) -->
-        <!-- 🔴 請替換下方的 href 網址 -->
+        <!-- 4. 信用卡優惠 (新功能) -->
+        <!-- 🔴 請替換 href -->
         <a href="https://ning-510.github.io/CreditCard/" target="_blank" class="app-card">
-            <div class="icon-box g-green">
-                <i class="ph ph-package"></i>
+            <div class="icon-box m-rose">
+                <i class="ph ph-credit-card"></i>
             </div>
             <div>
                 <div class="app-name">信用卡優惠</div>
-                <div class="app-desc">最佳選擇</div>
+                <div class="app-desc">回饋、權益</div>
             </div>
         </a>
-
-        
 
     </div>
 
 <script>
-    // 顯示日期
-    const dateOpts = { weekday: 'short', month: 'numeric', day: 'numeric' };
-    document.getElementById('current-date').innerText = new Date().toLocaleDateString('zh-TW', dateOpts);
+    // 顯示日期 (格式：JAN 15, WED)
+    const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
+    const dateStr = new Date().toLocaleDateString('en-US', dateOpts);
+    document.getElementById('current-date').innerText = dateStr;
 
-    // 備忘錄自動儲存功能
+    // 備忘錄自動儲存
     const note = document.getElementById('quick-note');
     note.value = localStorage.getItem('nh_dashboard_note') || "";
     note.addEventListener('input', () => {
