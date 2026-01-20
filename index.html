@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ning的數位總部</title>
+    <title>Ning & Hsiang 數位總部</title>
     <!-- 設定 iOS 主畫面全螢幕體驗 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,17 +95,20 @@
 
         /* --- 莫蘭迪色系定義 (Morandi Palette) --- */
         
-        /* 相機記帳：霧霾藍 (Dusty Blue) */
+        /* 1. 相機記帳：霧霾藍 */
         .m-blue { background: linear-gradient(135deg, #8FA4AE, #718995); }
         
-        /* 個人手帳：香芋紫 (Muted Lavender) */
+        /* 2. 個人手帳：香芋紫 */
         .m-purple { background: linear-gradient(135deg, #B3A5B8, #96869D); }
         
-        /* 居家庫存：奶茶杏 (Warm Beige/Apricot) */
+        /* 3. 居家庫存：奶茶杏 */
         .m-apricot { background: linear-gradient(135deg, #D4B59E, #BA9A82); }
         
-        /* 信用卡優惠：乾燥玫瑰 (Dusty Rose) */
+        /* 4. 信用卡優惠：乾燥玫瑰 */
         .m-rose { background: linear-gradient(135deg, #D4A5A5, #B58484); }
+
+        /* 5. 成分解密：鼠尾草綠 (Sage Green) - 新增 */
+        .m-sage { background: linear-gradient(135deg, #99B898, #708F7C); }
 
     </style>
 </head>
@@ -116,12 +119,17 @@
         <h1>Ning & Hsiang Home</h1>
     </header>
 
+    <!-- 快速備忘錄 -->
+    <div class="widget">
+        <i class="ph ph-push-pin-simple"></i>
+        <textarea id="quick-note" placeholder="寫點什麼... (自動儲存)"></textarea>
+    </div>
 
     <div class="grid">
         
         <!-- 1. 相機記帳 -->
-        <!-- 🔴 請替換 href -->
-        <a href="https://ning-510.github.io/SplitThe-Bill/" target="_blank" class="app-card">
+        <!-- 🔴 請確認網址 -->
+        <a href="https://你的帳號.github.io/money-tracker/" target="_blank" class="app-card">
             <div class="icon-box m-blue">
                 <i class="ph ph-camera"></i>
             </div>
@@ -132,8 +140,8 @@
         </a>
 
         <!-- 2. 個人手帳 -->
-        <!-- 🔴 請替換 href -->
-        <a href="https://ning-510.github.io/My-Planner/" target="_blank" class="app-card">
+        <!-- 🔴 請確認網址 -->
+        <a href="https://你的帳號.github.io/planner/" target="_blank" class="app-card">
             <div class="icon-box m-purple">
                 <i class="ph ph-notebook"></i>
             </div>
@@ -144,8 +152,8 @@
         </a>
 
         <!-- 3. 居家庫存 -->
-        <!-- 🔴 請替換 href -->
-        <a href="https://ning-510.github.io/Inventory/" target="_blank" class="app-card">
+        <!-- 🔴 請確認網址 -->
+        <a href="https://你的帳號.github.io/inventory/" target="_blank" class="app-card">
             <div class="icon-box m-apricot">
                 <i class="ph ph-package"></i>
             </div>
@@ -155,9 +163,9 @@
             </div>
         </a>
 
-        <!-- 4. 信用卡優惠 (新功能) -->
-        <!-- 🔴 請替換 href -->
-        <a href="https://ning-510.github.io/CreditCard/" target="_blank" class="app-card">
+        <!-- 4. 信用卡優惠 -->
+        <!-- 🔴 請確認網址 -->
+        <a href="https://你的帳號.github.io/credit-card/" target="_blank" class="app-card">
             <div class="icon-box m-rose">
                 <i class="ph ph-credit-card"></i>
             </div>
@@ -167,10 +175,21 @@
             </div>
         </a>
 
+        <!-- 5. 成分解密 (新功能) -->
+        <a href="https://ning-510.github.io/ingredient-scanner/" target="_blank" class="app-card">
+            <div class="icon-box m-sage">
+                <i class="ph ph-flask"></i>
+            </div>
+            <div>
+                <div class="app-name">成分解密</div>
+                <div class="app-desc">拍照看懂化學成分</div>
+            </div>
+        </a>
+
     </div>
 
 <script>
-    // 顯示日期 (格式：JAN 15, WED)
+    // 顯示日期
     const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
     const dateStr = new Date().toLocaleDateString('en-US', dateOpts);
     document.getElementById('current-date').innerText = dateStr;
