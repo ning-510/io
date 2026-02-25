@@ -2,219 +2,208 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ning's Page </title>
-    <!-- 設定 iOS 主畫面全螢幕體驗 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Ning's Page</title>
+    
+    <!-- iOS 全螢幕體驗設定 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ning's Page">
+    
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
     <style>
         :root {
-            /* 莫蘭迪背景色：帶一點暖灰 */
             --bg: #f5f5f2; 
             --card-bg: #ffffff;
-            --text-main: #4a4a4a; /* 深灰取代純黑，更柔和 */
+            --text-main: #4a4a4a;
             --text-sub: #8c8c8c;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            margin: 0; padding: 25px 20px;
-            max-width: 600px; margin: 0 auto;
+            margin: 0; 
+            padding: calc(40px + env(safe-area-inset-top)) 20px 40px;
+            max-width: 600px; 
+            margin: 0 auto;
             min-height: 100vh;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* 標題區 */
-        header { margin-bottom: 30px; padding-left: 5px; }
+        header { margin-bottom: 25px; padding-left: 5px; }
         .date { 
             font-size: 13px; color: var(--text-sub); 
-            font-weight: 600; text-transform: uppercase; letter-spacing: 1px; 
-            margin-bottom: 5px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; 
+            margin-bottom: 4px;
         }
         h1 { 
-            margin: 0; font-size: 26px; font-weight: 700; color: #3e3e3e;
-            letter-spacing: 0.5px;
+            margin: 0; font-size: 28px; font-weight: 800; color: #3e3e3e;
+            letter-spacing: -0.5px;
         }
-
-        /* 備忘錄小工具 - 簡約風格 */
-        .widget {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 18px 22px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            display: flex; align-items: center; gap: 12px;
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-        .widget i { font-size: 22px; color: #a89f91; /* 莫蘭迪棕 */ }
-        textarea {
-            width: 100%; border: none; resize: none; outline: none;
-            font-family: inherit; background: transparent; font-size: 15px; height: 24px;
-            margin-top: 2px; color: var(--text-main);
-        }
-        textarea::placeholder { color: #d1d1d1; }
 
         /* App 網格 */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 16px;
         }
 
-        /* 卡片本體 */
+        /* 卡片設計 */
         .app-card {
             background: var(--card-bg);
-            border-radius: 24px;
-            padding: 22px;
+            border-radius: 28px;
+            padding: 20px;
             text-decoration: none;
             color: var(--text-main);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 135px;
-            position: relative;
+            height: 140px;
             border: 1px solid rgba(0,0,0,0.01);
+            -webkit-tap-highlight-color: transparent;
         }
-        .app-card:active { transform: scale(0.97); }
+        
+        .app-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
 
-        /* 圖示區塊 */
+        .app-card:active {
+            transform: scale(0.94);
+            background-color: #fafafa;
+        }
+
         .icon-box {
-            width: 50px; height: 50px;
-            border-radius: 16px;
+            width: 48px; height: 48px;
+            border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 26px; color: white; margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 26px; color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .app-name { font-size: 16px; font-weight: 700; color: #555; }
-        .app-desc { font-size: 12px; color: #999; margin-top: 4px; font-weight: 500; }
+        .app-info { margin-top: 12px; }
+        .app-name { font-size: 16px; font-weight: 700; color: #444; }
+        .app-desc { font-size: 12px; color: #a0a0a0; margin-top: 2px; font-weight: 500; 
+                    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /* --- 莫蘭迪色系定義 (Morandi Palette) --- */
-        
-        /* 1. 相機記帳：霧霾藍 */
         .m-blue { background: linear-gradient(135deg, #8FA4AE, #718995); }
-        
-        /* 2. 個人手帳：香芋紫 */
         .m-purple { background: linear-gradient(135deg, #B3A5B8, #96869D); }
-        
-        /* 3. 居家庫存：奶茶杏 */
         .m-apricot { background: linear-gradient(135deg, #D4B59E, #BA9A82); }
-        
-        /* 4. 信用卡優惠：乾燥玫瑰 */
         .m-rose { background: linear-gradient(135deg, #D4A5A5, #B58484); }
-
-        /* 5. 成分解密：鼠尾草綠 (Sage Green) */
         .m-sage { background: linear-gradient(135deg, #99B898, #708F7C); }
-
-        /* 6. 彩妝分析：莫蘭迪煙粉紫 (Dusty Mauve) - 新增 */
         .m-mauve { background: linear-gradient(135deg, #A59395, #8F7D7F); }
+        
+        /* 頁尾 */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 10px;
+            color: #d1d1d1;
+            font-family: monospace;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
     </style>
 </head>
 <body>
 
     <header>
-        <div class="date" id="current-date">TODAY</div>
-        <h1>Ning & Hsiang Home</h1>
+        <div class="date" id="current-date">---</div>
+        <h1>Ning's Page</h1>
     </header>
-
-    <!-- 快速備忘錄 -->
-    <div class="widget">
-        <i class="ph ph-push-pin-simple"></i>
-        <textarea id="quick-note" placeholder="寫點什麼... (自動儲存)"></textarea>
-    </div>
 
     <div class="grid">
         
         <!-- 1. 相機記帳 -->
-        <!-- 🔴 請確認網址 -->
         <a href="https://ning-510.github.io/SplitThe-Bill/" target="_blank" class="app-card">
-            <div class="icon-box m-blue">
-                <i class="ph ph-camera"></i>
-            </div>
-            <div>
+            <div class="icon-box m-blue"><i class="ph ph-camera"></i></div>
+            <div class="app-info">
                 <div class="app-name">相機記帳</div>
                 <div class="app-desc">掃描、分帳</div>
             </div>
         </a>
 
-        <!-- 2. 個人手帳 -->
-        <!-- 🔴 請確認網址 -->
-        <a href="https://ning-510.github.io/My-Planner/" target="_blank" class="app-card">
-            <div class="icon-box m-purple">
-                <i class="ph ph-notebook"></i>
-            </div>
-            <div>
-                <div class="app-name">個人手帳</div>
-                <div class="app-desc">日記、行程</div>
+        <!-- 2. 餐點精靈 (與個人手帳互換) -->
+        <a href="https://ning-510.github.io/meal-sprite/" target="_blank" class="app-card">
+            <div class="icon-box m-sage"><i class="ph ph-fork-knife"></i></div>
+            <div class="app-info">
+                <div class="app-name">餐點精靈</div>
+                <div class="app-desc">用餐靈感建議</div>
             </div>
         </a>
 
         <!-- 3. 居家庫存 -->
-        <!-- 🔴 請確認網址 -->
         <a href="https://ning-510.github.io/Inventory/" target="_blank" class="app-card">
-            <div class="icon-box m-apricot">
-                <i class="ph ph-package"></i>
-            </div>
-            <div>
+            <div class="icon-box m-apricot"><i class="ph ph-package"></i></div>
+            <div class="app-info">
                 <div class="app-name">居家庫存</div>
                 <div class="app-desc">物品管理</div>
             </div>
         </a>
 
-        <!-- 4. 信用卡優惠 -->
-        <!-- 🔴 請確認網址 -->
-        <a href="https://ning-510.github.io/CreditCard/" target="_blank" class="app-card">
-            <div class="icon-box m-rose">
-                <i class="ph ph-credit-card"></i>
-            </div>
-            <div>
-                <div class="app-name">信用卡優惠</div>
-                <div class="app-desc">回饋、權益</div>
+        <!-- 4. 彩妝分析 (與信用卡優惠互換) -->
+        <a href="https://ning-510.github.io/Personal_Color/" target="_blank" class="app-card">
+            <div class="icon-box m-mauve"><i class="ph ph-palette"></i></div>
+            <div class="app-info">
+                <div class="app-name">彩妝分析</div>
+                <div class="app-desc">AI 季型與彩妝</div>
             </div>
         </a>
 
         <!-- 5. 成分解密 -->
         <a href="https://ning-510.github.io/ingredient-scanner/" target="_blank" class="app-card">
-            <div class="icon-box m-sage">
-                <i class="ph ph-flask"></i>
-            </div>
-            <div>
+            <div class="icon-box m-sage"><i class="ph ph-flask"></i></div>
+            <div class="app-info">
                 <div class="app-name">成分解密</div>
-                <div class="app-desc">拍照看懂化學成分</div>
+                <div class="app-desc">拍照辨識化學成分</div>
             </div>
         </a>
 
-        <!-- 6. 彩妝分析 (新加入) -->
-        <!-- 🔴 記得把 href 換成你實際部署這個彩妝網頁的 GitHub Pages 網址 -->
-        <a href="https://ning-510.github.io/Personal_Color/" target="_blank" class="app-card">
-            <div class="icon-box m-mauve">
-                <i class="ph ph-palette"></i>
+        <!-- 6. 信用卡優惠 (與彩妝分析互換) -->
+        <a href="https://ning-510.github.io/CreditCard/" target="_blank" class="app-card">
+            <div class="icon-box m-rose"><i class="ph ph-credit-card"></i></div>
+            <div class="app-info">
+                <div class="app-name">信用卡優惠</div>
+                <div class="app-desc">回饋、權益</div>
             </div>
-            <div>
-                <div class="app-name">彩妝分析</div>
-                <div class="app-desc">AI 季型與命定彩妝</div>
+        </a>
+
+        <!-- 7. 個人手帳 (與餐點精靈互換) -->
+        <a href="https://ning-510.github.io/My-Planner/" target="_blank" class="app-card">
+            <div class="icon-box m-purple"><i class="ph ph-notebook"></i></div>
+            <div class="app-info">
+                <div class="app-name">個人手帳</div>
+                <div class="app-desc">日記、行程</div>
+            </div>
+        </a>
+
+        <!-- 8. 股票分析 (原數據工具) -->
+        <a href="https://elmybhk8pflzxisnphzl7u.streamlit.app/" target="_blank" class="app-card">
+            <div class="icon-box m-blue"><i class="ph ph-chart-pie-slice"></i></div>
+            <div class="app-info">
+                <div class="app-name">股票分析</div>
+                <div class="app-desc">Streamlit 應用</div>
             </div>
         </a>
 
     </div>
 
-<script>
-    // 顯示日期
-    const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
-    const dateStr = new Date().toLocaleDateString('en-US', dateOpts);
-    document.getElementById('current-date').innerText = dateStr;
+    <footer>
+        Ning's Page • Minimalist Mode
+    </footer>
 
-    // 備忘錄自動儲存
-    const note = document.getElementById('quick-note');
-    note.value = localStorage.getItem('nh_dashboard_note') || "";
-    note.addEventListener('input', () => {
-        localStorage.setItem('nh_dashboard_note', note.value);
-    });
+<script>
+    // 顯示今日日期
+    const dateOpts = { weekday: 'short', month: 'short', day: 'numeric' };
+    document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', dateOpts);
 </script>
 
 </body>
